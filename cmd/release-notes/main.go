@@ -6,10 +6,14 @@ import (
 	"path"
 )
 
+var (
+	cliName = "confluent"
+)
+
 
 func main() {
 
-	fileName := path.Join(".", "release-notes", "ccloud", "index.rst")
+	fileName := path.Join(".", "release-notes", cliName, "index.rst")
 
 	err := writeReleaseNotes(fileName)
 	if err != nil {
