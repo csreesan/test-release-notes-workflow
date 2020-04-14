@@ -25,7 +25,7 @@ release-notes:
 .PHONY: publish-release-notes
 publish-release-notes: release-notes
 	@TEMP_DIR=$$(mktemp -d)/docs || exit 1; \
-		git clone git@github.com:confluentinc/docs.git $${TMP_DIR}; \
+		git clone git@github.com:csreesan/test-release-notes.git $${TMP_DIR}; \
 		cd $${TMP_DIR} || exit 1; \
 		git fetch ; \
 		git checkout -b cli-$(VERSION) origin/$(DOCS_BRANCH) || exit 1; \
@@ -46,7 +46,7 @@ ifndef BASE_DIR
 	$(error BASE_DIR is not set)
 endif 
 ifeq (ccloud,$(CLI_NAME))
-	$(eval RELEASE_DIR := release-notes)
+	$(eval RELEASE_DIR := cloud/cli/release-notes)
 endif
 	rm $(BASE_DIR)/$(RELEASE_DIR)/*.rst
 	cp release-notes/$(CLI_NAME)/*.rst $(BASE_DIR)/$(RELEASE_DIR)
