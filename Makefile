@@ -10,11 +10,11 @@
 # echo "day day bob day" | sed s/day/night/g
 # -i = --in-place = in-place argument
 
+# command1 && command2 makes sure that command2 isn't run if there's an error in the first command
 
-CLI_NAME=ccloud
-DOCS_BRANCH=main
-VERSION=1.0.0
-RELEASE_DIR=release-notes
+CLI_NAME := ccloud
+DOCS_BRANCH := master
+VERSION := $(shell git rev-parse --is-inside-work-tree > /dev/null && git git describe --tags)
 
 .PHONY: release-notes
 release-notes:
@@ -36,7 +36,7 @@ publish-release-notes: release-notes
 		git diff --cached --exit-code > /dev/null && echo "nothing to update" && exit 0; \
 		git commit -m "new release notes for $(VERSION)" || exit 1; \
 		git push origin cli-$(VERSION) || exit 1; \
-		# hub pull-request -b $(DOCS_BRANCH) -m "new release notes for $(VERSION)" || exit 1; 
+		hub pull-request -b $(DOCS_BRANCH) -m "new release notes for $(VERSION)" || exit 1; 
 		cd - || exit 1; \
 		rm -rf $${TMP_DIR}	
 
